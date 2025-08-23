@@ -49,14 +49,14 @@ RUN apk add --no-cache build-base openssl-dev zlib-dev bzip2-dev readline-dev sq
 
 RUN cd /tmp/ \
     && wget https://www.python.org/ftp/python/3.13.7/Python-3.13.7.tgz \
-    && tar -xzvf Python-3.13.0.tgz \
-    && cd Python-3.13.0/ \
+    && tar -xzvf Python-3.13.7.tgz \
+    && cd Python-3.13.7/ \
     && ./configure --enable-optimizations  PROFILE_TASK='-m test --pgo -i test_fma_zero_result -i test_locale_caching -i test_locale_compiled' \
     && make -j $(nproc) \
     && make install \
     && cd /tmp \
-    && rm Python-3.13.0.tgz \
-    && rm -r Python-3.13.0/
+    && rm Python-3.13.7.tgz \
+    && rm -r Python-3.13.7
 
 ####
 ## Install pip module for component/homeassistant
