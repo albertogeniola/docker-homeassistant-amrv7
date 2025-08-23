@@ -35,6 +35,16 @@ RUN \
         pulseaudio-alsa \
         socat
 
+# ::GENIOLA:: Build python3.13 from sources and install it
+RUN apk add --no-cache build-base
+RUN cd /tmp/ \
+    && wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz \
+    && tar -xzvf Python-3.13.0.tgz \
+    && cd Python-3.13.0/ \
+    && ./configure --enable-optimizations \
+    && make -j $(nproc) \
+    && make install
+
 ####
 ## Install pip module for component/homeassistant
 COPY requirements.txt /usr/src/
@@ -60,12 +70,6 @@ RUN \
     && make install \
     && apk del .build-dependencies \
     && rm -rf /usr/src/ssocr
-
-# ::GENIOLA:: Add python setuptools
-ENV PYTHONUNBUFFERED=1
-RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
 
 # libcec
 COPY patches/libcec-fix-null-return.patch /usr/src/
