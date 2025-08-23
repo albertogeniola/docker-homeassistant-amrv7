@@ -35,15 +35,21 @@ RUN \
         pulseaudio-alsa \
         socat
 
-# ::GENIOLA:: Build python3.13 from sources and install it
+# ::GENIOLA:: Build python3.13 from sources and install it.
+#             We also need to configure the PROFILE TASK to skip some tests as there are issues with 
+#             Alpine3.17 locale musl
+#             https://github.com/python/cpython/issues/131342
+#             https://github.com/python/cpython/issues/131032
 RUN apk add --no-cache build-base
 RUN cd /tmp/ \
     && wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz \
     && tar -xzvf Python-3.13.0.tgz \
     && cd Python-3.13.0/ \
-    && ./configure --enable-optimizations \
+    && ./configure --enable-optimizations  PROFILE_TASK='-m test --pgo -i test_fma_zero_result -i test_locale_caching -i test_locale_compiled' \
     && make -j $(nproc) \
-    && make install
+    && make install \
+    && cd /tmp \
+    && rm Python-3.13.0.tgz
 
 ####
 ## Install pip module for component/homeassistant
