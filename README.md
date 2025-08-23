@@ -1,10 +1,7 @@
 
 # Docker
-Home Assistant containers
+Home Assistant containers for Armv7 woth 32K page size only compatiblity.
+Working with Alpine 3.17 base image.
 
 Base Images:
-- homeassistant/aarch64-homeassistant-base:_BASE-VERSION_
-- homeassistant/amd64-homeassistant-base:_BASE-VERSION_
-- homeassistant/armhf-homeassistant-base:_BASE-VERSION_
-- homeassistant/armv7-homeassistant-base:_BASE-VERSION_
-- homeassistant/i386-homeassistant-base:_BASE-VERSION_
+- homeassistant/armv7-homeassistant-base:

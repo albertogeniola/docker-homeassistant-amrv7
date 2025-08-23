@@ -1,4 +1,7 @@
 Brotli==1.1.0
 faust-cchardet==2.1.19
-mysqlclient==2.2.7
-psycopg2==2.9.10
+#::GENIOLA:: remove pinning as the following version are no longer available for alpine 3.17
+#mysqlclient==2.2.7
+#psycopg2==2.9.10
+mysqlclient
+psycopg2
