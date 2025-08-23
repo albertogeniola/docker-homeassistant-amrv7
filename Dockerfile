@@ -74,6 +74,7 @@ RUN apk add --no-cache \
         swig \
         p8-platform-dev \
         linux-headers \
+        python3-dev \
     && git clone --depth 1 -b "libcec-${LIBCEC_VERSION}" https://github.com/Pulse-Eight/libcec \
     && cd libcec \
     && git apply ../libcec-fix-null-return.patch \
