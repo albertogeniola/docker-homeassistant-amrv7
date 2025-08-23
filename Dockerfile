@@ -40,7 +40,13 @@ RUN \
 #             Alpine3.17 locale musl
 #             https://github.com/python/cpython/issues/131342
 #             https://github.com/python/cpython/issues/131032
-RUN apk add --no-cache build-base
+RUN apk add --no-cache build-base openssl-dev zlib-dev bzip2-dev readline-dev sqlite-dev ncurses-dev libffi-dev gdbm-dev
+# RUN git clone https://github.com/openssl/openssl.git \
+#     && cd openssl \
+#     && ./Configure \
+#     && make \
+#     && make install
+
 RUN cd /tmp/ \
     && wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz \
     && tar -xzvf Python-3.13.0.tgz \
@@ -49,10 +55,12 @@ RUN cd /tmp/ \
     && make -j $(nproc) \
     && make install \
     && cd /tmp \
-    && rm Python-3.13.0.tgz
+    && rm Python-3.13.0.tgz \
+    && rm -r Python-3.13.0/
 
 ####
 ## Install pip module for component/homeassistant
+RUN pip3 -m ensurepip
 COPY requirements.txt /usr/src/
 RUN \
     pip3 install --only-binary=:all: \
