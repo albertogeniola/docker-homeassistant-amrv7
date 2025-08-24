@@ -54,7 +54,7 @@ RUN cd /tmp/ \
 
 ####
 ## Install pip module for component/homeassistant
-RUN pip3 -m ensurepip
+RUN python3 -m ensurepip
 COPY requirements.txt /usr/src/
 RUN \
     pip3 install --only-binary=:all: \
