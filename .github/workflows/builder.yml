@@ -1,44 +1,23 @@
 name: Build base images
 
-on: workflow_dispatch
-
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        description: "Version for tagging and releasing"
+        
 env:
   BUILD_TYPE: base
 
 jobs:
-  init:
-    name: Initialize build
-    runs-on: ubuntu-22.04
-    outputs:
-      architectures: ${{ steps.info.outputs.architectures }}
-      version: ${{ steps.version.outputs.version }}
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v5.0.0
-        with:
-          fetch-depth: 0
-
-      - name: Get information
-        id: info
-        uses: home-assistant/actions/helpers/info@master
-
-      - name: Get version
-        id: version
-        uses: home-assistant/actions/helpers/version@master
-        with:
-          type: ${{ env.BUILD_TYPE }}
-
   build:
-    name: Build ${{ matrix.arch }} base image
-    needs: init
+    name: Build armv7 base image
     runs-on: ubuntu-22.04
     permissions:
       contents: read
       id-token: write
       packages: write
-    strategy:
-      matrix:
-        arch: ${{ fromJson(needs.init.outputs.architectures) }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v5.0.0
@@ -49,23 +28,18 @@ jobs:
           echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Login to GitHub Container Registry
-        if: github.event_name == 'release'
         uses: docker/login-action@v3.5.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set build arguments
-        if: github.event_name != 'release'
-        run: echo "BUILD_ARGS=--test" >> $GITHUB_ENV
-
       - name: Build base image
         uses: home-assistant/builder@2025.03.0
         with:
           args: |
             $BUILD_ARGS \
-            --${{ matrix.arch }} \
+            --armv7 \
             --target /data \
             --cosign \
-            --generic ${{ needs.init.outputs.version }}
+            --generic ${{ github.event.inputs.version }}
