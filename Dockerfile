@@ -40,7 +40,8 @@ RUN \
 #             Alpine3.17 locale musl
 #             https://github.com/python/cpython/issues/131342
 #             https://github.com/python/cpython/issues/131032
-RUN apk add --no-cache build-base openssl-dev zlib-dev bzip2-dev readline-dev sqlite-dev ncurses-dev libffi-dev gdbm-dev
+RUN apk add --no-cache build-base openssl-dev libffi-dev zlib-dev bzip2-dev xz-dev sqlite-dev readline-dev
+
 # RUN git clone https://github.com/openssl/openssl.git \
 #     && cd openssl \
 #     && ./Configure \
