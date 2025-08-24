@@ -41,18 +41,11 @@ RUN \
 #             https://github.com/python/cpython/issues/131342
 #             https://github.com/python/cpython/issues/131032
 RUN apk add --no-cache build-base openssl-dev libffi-dev zlib-dev bzip2-dev xz-dev sqlite-dev readline-dev
-
-# RUN git clone https://github.com/openssl/openssl.git \
-#     && cd openssl \
-#     && ./Configure \
-#     && make \
-#     && make install
-
 RUN cd /tmp/ \
     && wget https://www.python.org/ftp/python/3.13.7/Python-3.13.7.tgz \
     && tar -xzvf Python-3.13.7.tgz \
     && cd Python-3.13.7/ \
-    && ./configure --enable-optimizations  PROFILE_TASK='-m test --pgo -i test_fma_zero_result -i test_locale_caching -i test_locale_compiled' \
+    && ./configure --enable-shared --enable-optimizations  PROFILE_TASK='-m test --pgo -i test_fma_zero_result -i test_locale_caching -i test_locale_compiled' \
     && make -j $(nproc) \
     && make install \
     && cd /tmp \
