@@ -47,21 +47,19 @@ jobs:
             --docker-hub "ghcr.io/${{ github.repository_owner }}" \
             --generic ${{ github.event.inputs.version }}
             
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v3.5.0
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.repository_owner }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3.5.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          #password: ${{ secrets.GH_PAT }}
-
-      - name: Build (cached) and publish base image
-        uses: home-assistant/builder@2025.03.0
-        with:
-          args: |
-            $BUILD_ARGS \
-            --armv7 \
-            --target /data \
-            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
-            --generic ${{ github.event.inputs.version }}
+#      - name: Build (cached) and publish base image
+#        uses: home-assistant/builder@2025.03.0
+#        with:
+#          args: |
+#            $BUILD_ARGS \
+#            --armv7 \
+#            --target /data \
+#            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+#            --generic ${{ github.event.inputs.version }}
