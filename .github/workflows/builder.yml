@@ -41,7 +41,7 @@ jobs:
         with:
           args: |
             $BUILD_ARGS \
-            --test
+            --test \
             --armv7 \
             --target /data \
             --generic ${{ github.event.inputs.version }}
