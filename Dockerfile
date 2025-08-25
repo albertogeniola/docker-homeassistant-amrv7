@@ -1,5 +1,6 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
+LABEL org.opencontainers.image.source=https://github.com/albertogeniola/docker-homeassistant-armv7-base-image
 
 ARG \
     BUILD_ARCH \
