@@ -1,4 +1,4 @@
-name: Build base images
+name: Build base image (armv7)
 
 on: 
   workflow_dispatch:
