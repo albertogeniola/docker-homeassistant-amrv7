@@ -57,6 +57,8 @@ jobs:
             LIBCEC_VERSION=6.0.2
             TELLDUS_COMMIT=2598bbed16ffd701f2a07c99582f057a3decbaf3
             PICOTTS_HASH=e3ba46009ee868911fa0b53db672a55f9cc13b1c
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3.5.0
@@ -72,3 +74,11 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/albertogeniola/docker-homeassistant-armv7-base-image:${{ github.event.inputs.version }}
+          build-args: |
+            BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.11-alpine3.17
+            SSOCR_VERSION=2.23.1
+            LIBCEC_VERSION=6.0.2
+            TELLDUS_COMMIT=2598bbed16ffd701f2a07c99582f057a3decbaf3
+            PICOTTS_HASH=e3ba46009ee868911fa0b53db672a55f9cc13b1c
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
