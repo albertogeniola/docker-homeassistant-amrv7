@@ -43,6 +43,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+        # TODO: we must compose the build-args from build.yaml in a dedicated step
       - name: Build
         uses: docker/build-push-action@v6
         with:
@@ -50,6 +51,12 @@ jobs:
           context: .
           push: false
           tags: ghcr.io/albertogeniola/docker-homeassistant-armv7-base-image:${{ github.event.inputs.version }}
+          build-args: |
+            BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.11-alpine3.17
+            SSOCR_VERSION=2.23.1
+            LIBCEC_VERSION=6.0.2
+            TELLDUS_COMMIT=2598bbed16ffd701f2a07c99582f057a3decbaf3
+            PICOTTS_HASH=e3ba46009ee868911fa0b53db672a55f9cc13b1c
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3.5.0
