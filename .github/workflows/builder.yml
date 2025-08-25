@@ -41,12 +41,11 @@ jobs:
         with:
           args: |
             $BUILD_ARGS \
-#            --test \
             --armv7 \
             --target /data \
             --docker-hub "ghcr.io/${{ github.repository_owner }}" \
             --generic ${{ github.event.inputs.version }}
-            
+#            --test \
 #      - name: Login to GitHub Container Registry
 #        uses: docker/login-action@v3.5.0
 #        with:
