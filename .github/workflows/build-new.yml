@@ -50,7 +50,7 @@ jobs:
           platforms: linux/arm/v7
           context: .
           push: false
-          tags: ghcr.io/albertogeniola/docker-homeassistant-armv7-base-image:${{ github.event.inputs.version }}
+          tags: ghcr.io/albertogeniola/docker-homeassistant-armv7-base-image:${{ github.event.inputs.version }}-manual
           build-args: |
             BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.11-alpine3.17
             BUILD_ARCH=armv7
@@ -74,7 +74,7 @@ jobs:
           platforms: linux/arm/v7
           context: .
           push: true
-          tags: ghcr.io/albertogeniola/docker-homeassistant-armv7-base-image:${{ github.event.inputs.version }}
+          tags: ghcr.io/albertogeniola/homeassistant-armv7-base-image:${{ github.event.inputs.version }}-manual
           build-args: |
             BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.11-alpine3.17
             BUILD_ARCH=armv7
